@@ -1,6 +1,11 @@
+import React from "react";
 import { useEffect, useState } from "react";
 
-export default function ClientOnly({ children, ...delegated }) {
+interface Props{
+  children: React.ReactNode
+}
+
+const  ClientOnly:React.FC<Props> =({ children, ...delegated }) =>{
   const [hasMounted, setHasMounted] = useState(false);
 
   useEffect(() => {
@@ -13,3 +18,6 @@ export default function ClientOnly({ children, ...delegated }) {
 
   return <span {...delegated}>{children}</span>;
 }
+
+
+export default ClientOnly;

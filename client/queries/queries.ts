@@ -6,3 +6,12 @@ export const NAME_QUERY = gql`
     name
   }
 `
+
+export const USERS_QUERY = gql`
+  query {
+    users{
+      name,
+      addr
+    }
+  }
+`
