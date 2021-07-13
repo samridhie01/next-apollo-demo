@@ -1,14 +1,17 @@
 import Link from 'next/link'
-import WithApollo from '../lib/with-apollo'
 import Name from '../components/Name'
+import ClientOnly from '../components/client-only';
 
-const Page = () => (
+const Index = () => (
   <div>
-    Welcome, <Name />
+    Welcome,
+    <ClientOnly>
+    <Name />
+      </ClientOnly> 
     <br/><br/>
     <Link href="/about"><a>About</a></Link>
 
   </div>
 )
 
-export default WithApollo(Page)
+export default Index;
