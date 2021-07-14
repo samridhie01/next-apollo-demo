@@ -8,10 +8,13 @@ export const NAME_QUERY = gql`
 `
 
 export const USERS_QUERY = gql`
-  query {
-    users{
-      name,
+query($first: Int, $offset: Int){
+  allUsers(first: $first, offset:$offset ){
+  users{
+      name
       addr
     }
+    totalCount
   }
+}
 `

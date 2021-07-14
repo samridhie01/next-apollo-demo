@@ -5,13 +5,34 @@ const { ApolloServer, gql } = require('apollo-server-express');
 const cors = require('cors');
 var casual = require('casual');
 
+const MAX_RECORDS = 2000;
+
+function dataList(){
+  const list =[];
+  for(let i=0; i<MAX_RECORDS; i++){
+      list.push({
+        name: casual.name,
+        addr: casual.address
+      })
+    }
+    return list;
+}
+
+
+const data = dataList();
+
+
 const typeDefs= gql`
   type Query {
-    name: String,
+    name: String
+    allUsers(first: Int, offset: Int): UserResult
+  }
+  type UserResult{
     users: [User]
+    totalCount: Int
   }
   type User{
-    name: String,
+    name: String
     addr: String
   }
 `;
@@ -20,17 +41,16 @@ const typeDefs= gql`
 const resolvers = {
   Query:{
     name: ()=>casual.name,
-    users: ()=>{
-      const list =[];
-      for(let i=0; i<2000; i++){
-        list.push({
-          name: casual.name,
-          addr: casual.address
-        })
+    allUsers: (_, args)=>{
+      const totalCount=data.length
+      const users = args.first===undefined? data.slice(args.offset) : data.slice(args.offset, args.offset+args.first);
+      const result = {
+        users,
+        totalCount
       }
-       return list;
-      }
+      return result;
   }
+}
 }
 
 const app = express();
