@@ -1,9 +1,10 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useLazyQuery } from "@apollo/client";
 import { Button, CircularProgress, Grid } from "@material-ui/core";
-import { offsetVar } from '../cache';
-import { USERS_QUERY } from "../queries/queries";
-import UserCard from "../components/UserCard";
+import { offsetVar } from '../../cache';
+import { USERS_QUERY } from "../../queries/queries";
+import UserCard from "../UserCard/UserCard";
+
 
 interface User {
     name: string,
@@ -48,10 +49,10 @@ const UserGrid = ()=>{
     return (
         <div>
             {loading ?
-                <CircularProgress />
+                <CircularProgress data-testid='loader'/>
                 : (
                     <>
-                        <Grid container spacing={3}>
+                        <Grid container spacing={3} data-testid='user-grid'>
                         {data && data.allUsers.users.map((user: User) => (
                             <UserCard name={user.name} addr={user.addr}/>
                         ))}

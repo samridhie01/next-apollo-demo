@@ -20,7 +20,7 @@ const StyledCard = styled(Card)`
 const UserCard: React.FC<User> = ({ name, addr }) => {
 
     return (
-        <StyledCard raised={true} className="user-cards">
+        <StyledCard raised={true} className="user-cards" data-testid="user-card">
             <CardContent>
                 {name}
             </CardContent>
