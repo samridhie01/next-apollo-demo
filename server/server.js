@@ -5,7 +5,7 @@ const { ApolloServer, gql } = require('apollo-server-express');
 const cors = require('cors');
 var casual = require('casual');
 
-const MAX_RECORDS = 2000;
+const MAX_RECORDS = 60;
 
 function dataList(){
   const list =[];
