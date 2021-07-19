@@ -21,7 +21,10 @@
     ],
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
-    "isolatedModules": true
+    "isolatedModules": true,
+    "types": [
+      "cypress"
+    ]
   },
   "exclude": [
     "node_modules",

@@ -4,7 +4,9 @@
   "main": "index.js",
   "scripts": {
     "dev": "next",
-    "test": "jest"
+    "build": "next build",
+    "test": "jest",
+    "e2e": "cypress run"
   },
   "license": "MIT",
   "dependencies": {
@@ -29,6 +31,8 @@
     "@types/react-test-renderer": "^17.0.1",
     "@types/styled-components": "^5.1.11",
     "babel-jest": "^27.0.6",
+    "cypress": "^7.7.0",
+    "dotenv": "^10.0.0",
     "jest": "^27.0.6",
     "jest-dom": "^4.0.0",
     "react-test-renderer": "^17.0.2",
