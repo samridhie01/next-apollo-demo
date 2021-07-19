@@ -6,16 +6,24 @@ describe('User Link', () => {
       cy.visit(`http://localhost:3000`);
     });
 
-    it('Visits click User link', () => {
-      cy.get('a:contains("User")')
+    it('Check and click User link', () => {
+      cy.get('a:contains("User")').click()
     });
 
-    // it('Visits click User link', () => {
-    //   cy.url().should('include', '/users')
-    // });
+    it('Check url navigation to users page', () => {
+      cy.url().should("match", /users/)
+    });
 
-    // it('Visits click User link', () => {
-    //   cy.url().should('include', '/users')
-    // });
+    it('Check 20 users card should get loaded', () => {
+      cy.get('[data-testid="user-card"]').should('have.length', 20);
+    });
+
+    it('Check load more button on page', () => {
+      cy.get('[data-testid="loading-button"]').click();
+    });
+
+    it('Check 20 users card should get loaded', () => {
+      cy.get('[data-testid="user-card"]').should('have.length', 40);
+    });
 });
 

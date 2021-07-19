@@ -6,7 +6,9 @@
     "dev": "next",
     "build": "next build",
     "test": "jest",
-    "e2e": "cypress run"
+    "e2e": "cypress run",
+    "prod": "next export",
+    "start": "next start"
   },
   "license": "MIT",
   "dependencies": {
@@ -15,8 +17,7 @@
     "graphql": "^15.5.1",
     "next": "^11.0.1",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "styled-components": "^5.3.0"
+    "react-dom": "^17.0.2"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.14.7",
@@ -31,6 +32,7 @@
     "@types/react-test-renderer": "^17.0.1",
     "@types/styled-components": "^5.1.11",
     "babel-jest": "^27.0.6",
+    "babel-plugin-react-remove-properties": "^0.3.0",
     "cypress": "^7.7.0",
     "dotenv": "^10.0.0",
     "jest": "^27.0.6",

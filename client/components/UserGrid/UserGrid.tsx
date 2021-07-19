@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useLazyQuery } from "@apollo/client";
-import { Button, CircularProgress, Grid } from "@material-ui/core";
+import { Button, CircularProgress, Grid, makeStyles } from "@material-ui/core";
 import { offsetVar } from '../../cache';
 import { USERS_QUERY } from "../../queries/queries";
 import UserCard from "../UserCard/UserCard";
@@ -11,7 +11,17 @@ interface User {
     addr: string
 }
 
+const useStyles = makeStyles(theme => ({
+    root: {
+      padding: theme.spacing(4, 0),
+      display: 'flex',
+      justifyContent: 'center',
+      minWidth: "250px"
+    },
+  }));
+
 const UserGrid = ()=>{
+    const classes = useStyles();
     const first = 20;
       let [scrollPos, setScrollPos] = useState(0);
     const [getUsers, { loading, data = { allUsers: { totalCount: 0, users: [] } } }] = useLazyQuery(USERS_QUERY,{
@@ -36,7 +46,8 @@ const UserGrid = ()=>{
         window.scrollTo(0, scrollPos)
     })
 
-    const handleClick = () => {
+    const handleClick = (e:any) => {
+        e.preventDefault();
         setScrollPos(window.pageYOffset)
         getRequiredUsers();
     }
@@ -52,22 +63,24 @@ const UserGrid = ()=>{
                 <CircularProgress data-testid='loader'/>
                 : (
                     <>
-                        <Grid container spacing={3} data-testid='user-grid'>
+                        <Grid className={classes.root} container spacing={4} data-testid='user-grid'>
                         {data && data.allUsers.users.map((user: User) => (
                             <UserCard name={user.name} addr={user.addr}/>
                         ))}
                         </Grid>
                         <br />
+                        <div className={classes.root}>
                         <Button
                             data-testid="loading-button"
                             variant="contained"
                             size="large"
                             color="secondary"
                             disabled={isDisabled()}
-                            onClick={handleClick}
+                            onClick={(e:any)=>handleClick(e)}
                         >
                             Load more
                         </Button>
+                        </div>
                     </>
                 )}
 

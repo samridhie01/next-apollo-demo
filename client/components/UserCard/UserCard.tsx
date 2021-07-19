@@ -1,33 +1,36 @@
-import { Card, CardContent } from "@material-ui/core";
 import React from "react";
-import styled from "styled-components";
+import { Card, CardContent, makeStyles } from "@material-ui/core";
+
 
 interface User {
     name: string,
     addr: string
 }
 
-const StyledCard = styled(Card)`
-    width: 300px;
-    padding: 5px;
-    &:hover{
-        background-color: grey;
-        cursor: pointer
-
-    }
-`
+const useStyles = makeStyles(theme => ({
+    usercard: {
+        width: '300px',
+        padding: '5px',
+        margin: '8px',
+       "&:hover":{
+            backgroundColor: 'grey',
+            cursor: 'pointer'
+        }
+    },
+  }));
 
 const UserCard: React.FC<User> = ({ name, addr }) => {
 
+    const classes = useStyles();
     return (
-        <StyledCard raised={true} className="user-cards" data-testid="user-card">
+        <Card raised={true} className={classes.usercard} data-testid="user-card">
             <CardContent>
                 {name}
             </CardContent>
             <CardContent>
                 {addr}
             </CardContent>
-        </StyledCard>
+        </Card>
 
     )
 }
