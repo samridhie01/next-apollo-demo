@@ -5,6 +5,6 @@ WORKDIR /src/server
 COPY package*.json ./
 RUN npm install
 
-COPY ..
+COPY . .
 
 CMD ["npm", "start"]

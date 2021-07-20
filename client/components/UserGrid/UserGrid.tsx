@@ -55,8 +55,7 @@ const UserGrid = ()=>{
     const isDisabled = (): boolean => {
         return data && data.allUsers.totalCount===offsetVar();
     }
-   
-    
+
     return (
         <div>
             {loading ?
