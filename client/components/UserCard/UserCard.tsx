@@ -1,28 +1,28 @@
 import React from "react";
-import { Card, CardContent, makeStyles } from "@material-ui/core";
+import { Card, CardContent, Grid, makeStyles } from "@material-ui/core";
 
-
-interface User {
-    name: string,
-    addr: string
-}
 
 const useStyles = makeStyles(theme => ({
     usercard: {
         width: '300px',
+        height: '150px',
         padding: '5px',
-        margin: '8px',
+        margin: '2px',
        "&:hover":{
             backgroundColor: 'grey',
             cursor: 'pointer'
         }
     },
+    root:{
+        flexGrow:1
+    }
   }));
 
 const UserCard: React.FC<User> = ({ name, addr }) => {
 
     const classes = useStyles();
     return (
+        <Grid item className={classes.root}> 
         <Card raised={true} className={classes.usercard} data-testid="user-card">
             <CardContent>
                 {name}
@@ -31,7 +31,7 @@ const UserCard: React.FC<User> = ({ name, addr }) => {
                 {addr}
             </CardContent>
         </Card>
-
+        </Grid>
     )
 }
 

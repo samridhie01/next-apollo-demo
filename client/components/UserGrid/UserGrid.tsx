@@ -1,54 +1,40 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { useLazyQuery } from "@apollo/client";
+import React, { useCallback, useEffect } from "react";
+import { useQuery } from "@apollo/client";
 import { Button, CircularProgress, Grid, makeStyles } from "@material-ui/core";
 import { offsetVar } from '../../cache';
 import { USERS_QUERY } from "../../queries/queries";
 import UserCard from "../UserCard/UserCard";
 
-
-interface User {
-    name: string,
-    addr: string
-}
-
 const useStyles = makeStyles(theme => ({
     root: {
       padding: theme.spacing(4, 0),
       display: 'flex',
-      justifyContent: 'center',
-      minWidth: "250px"
+       flexGrow: 1,
+       justifyContent: 'center'
     },
   }));
 
 const UserGrid = ()=>{
     const classes = useStyles();
     const first = 20;
-      let [scrollPos, setScrollPos] = useState(0);
-    const [getUsers, { loading, data = { allUsers: { totalCount: 0, users: [] } } }] = useLazyQuery(USERS_QUERY,{
-        fetchPolicy: "cache-and-network"
+    const { loading, error, data , fetchMore} = useQuery(USERS_QUERY,{
+        variables:{
+            first,
+            offset: offsetVar()
+        }
     });
 
     const getRequiredUsers = useCallback(async () => {
-        await getUsers({
-            variables: {
-                first,
+        await fetchMore({
+            variables:{
                 offset: offsetVar()
             }
         });
         offsetVar(offsetVar() + 20);
     }, [])
 
-    useEffect(() => {
-        getRequiredUsers();
-    }, [])
-
-    useEffect(() => {
-        window.scrollTo(0, scrollPos)
-    })
-
     const handleClick = (e:any) => {
         e.preventDefault();
-        setScrollPos(window.pageYOffset)
         getRequiredUsers();
     }
 
@@ -59,10 +45,10 @@ const UserGrid = ()=>{
     return (
         <div>
             {loading ?
-                <CircularProgress data-testid='loader'/>
+                <CircularProgress data-testid='loader'/>              
                 : (
                     <>
-                        <Grid className={classes.root} container spacing={4} data-testid='user-grid'>
+                        <Grid container data-testid='user-grid'>
                         {data && data.allUsers.users.map((user: User) => (
                             <UserCard name={user.name} addr={user.addr}/>
                         ))}
@@ -82,9 +68,6 @@ const UserGrid = ()=>{
                         </div>
                     </>
                 )}
-
-
-
         </div>
 
     )
