@@ -1,8 +1,6 @@
 # next-apollo-demo
 Simple Next.js example with Apollo
 
-Things left:
-1. testing deployement with heroku
-2. Styling across application
-3. Environment files
-4. Improving infinite scroll
+1. Go to client folder and run npm run dev
+2. Go to server and open npm run dev
+
