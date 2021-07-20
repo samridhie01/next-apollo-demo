@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import { Button, CircularProgress, Grid, makeStyles } from "@material-ui/core";
-import { offsetVar } from '../../cache';
+import { offsetVar } from '../../lib/cache';
 import { USERS_QUERY } from "../../queries/queries";
 import UserCard from "../UserCard/UserCard";
 
