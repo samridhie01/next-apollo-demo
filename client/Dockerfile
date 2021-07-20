@@ -7,7 +7,7 @@ WORKDIR /src/client
 COPY package.json  ./
 RUN npm install
 
-COPY . .
-RUN npm build
+COPY . ./
+RUN npm run build
 RUN npm run prod
 CMD ["npm", "start"]
