@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
 import { Button, CircularProgress, Grid, makeStyles } from "@material-ui/core";
 import { offsetVar } from '../../lib/cache';
@@ -30,22 +30,26 @@ const UserGrid = ()=>{
                 offset: offsetVar()
             }
         });
-        offsetVar(offsetVar() + 20);
     }, [])
 
     const handleClick = (e:any) => {
         e.preventDefault();
         getRequiredUsers();
+        offsetVar(offsetVar() + first);
     }
 
     const isDisabled = (): boolean => {
+        console.log("HERE", data && data.allUsers.totalCount, offsetVar(), data && data.allUsers.totalCount===offsetVar());
+        
         return data && data.allUsers.totalCount===offsetVar();
     }
 
     return (
         <div>
+            {}
             {loading ?
-                <CircularProgress data-testid='loader'/>              
+                <CircularProgress data-testid='loader'/> 
+                            
                 : (
                     <>
                         <Grid container data-testid='user-grid'>
@@ -55,16 +59,15 @@ const UserGrid = ()=>{
                         </Grid>
                         <br />
                         <div className={classes.root}>
-                        <Button
+                        { !(data.allUsers.totalCount===offsetVar()) && (<Button
                             data-testid="loading-button"
                             variant="contained"
                             size="large"
                             color="secondary"
-                            disabled={isDisabled()}
                             onClick={(e:any)=>handleClick(e)}
                         >
                             Load more
-                        </Button>
+                        </Button>)}
                         </div>
                     </>
                 )}

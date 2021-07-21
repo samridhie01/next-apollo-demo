@@ -1,19 +1,17 @@
+import React from "react";
 import { MockedProvider } from "@apollo/client/testing";
 import { cleanup, fireEvent, render, waitFor } from "@testing-library/react";
-import React from "react";
 import { USERS_QUERY } from "../../queries/queries";
 import UserGrid from "./UserGrid";
 import '@testing-library/jest-dom'
 
-
-
 describe('UserGrid', () => {
-  const mocks = [
+  const userGridMocks = [
     {
       request: {
         query: USERS_QUERY,
         variables:{
-          first: 2,
+          first: 20,
           offset: 0
         }
       },
@@ -23,14 +21,20 @@ describe('UserGrid', () => {
             users:[{
               name: "name1",
               addr: "address1"
+            }, {
+              name: "name1",
+              addr: "address1"
+            }, {
+              name: "name1",
+              addr: "address1"
             }],
-            totalCount:20
+            totalCount:40
           }
         }
       },
     },
   ];
-  const Wrapper = (mocks=[]) => (
+  const Wrapper = ({ mocks = [] }) => (
     <MockedProvider mocks={mocks} addTypename={false}>
       <UserGrid />
     </MockedProvider>
@@ -39,22 +43,39 @@ describe('UserGrid', () => {
   beforeEach(cleanup);
 
 
-  it('renders loader on the screen', () => {
-    const { getByTestId } = render(Wrapper());
-    expect(getByTestId('loader')).toBeTruthy();
+  it('renders loader on the screen', async() => {
+    const { getByTestId } = render(<Wrapper mocks={userGridMocks}/>);
+    const loader = await getByTestId('loader');
+    expect(loader).toBeTruthy();
   });
 
-  it('renders without crashing', async() => {
-    const { findByTestId } = render(Wrapper())
-    const userGrid  = await findByTestId('user-grid');
-    expect(userGrid).toBeInTheDocument();
+  it('renders without crashing', () => {
+    const { getByTestId } = render(<Wrapper mocks={userGridMocks}/>);
+   setTimeout(()=>{
+    const userGrid = getByTestId('user-grid');
+    expect(userGrid).toBeTruthy();
+   }, 1500)
   });
 
-   it('renders load button on the screen', async() => {
-    const { findByTestId } = render(Wrapper())
-    const loadMoreBtn  = await findByTestId('loading-button');
+   it('renders load button on the screen', () => {
+    const { findByTestId } = render(<Wrapper mocks={userGridMocks} />)
+    setTimeout(()=>{
+    const loadMoreBtn  = findByTestId('loading-button');
     expect(loadMoreBtn).toBeInTheDocument();
+  }, 1500)
+  });
+
+  it('disable the button', () => {
+    const { findByTestId } = render(<Wrapper mocks={userGridMocks} />)
+    let loadMoreBtn=null ;
+    setTimeout(()=>{
+    loadMoreBtn =  findByTestId('loading-button');
+    fireEvent.click(loadMoreBtn);
+    expect(loadMoreBtn).not.toBeInTheDocument();
+  }, 1500);
+   
+
   });
 
   
-})
+});

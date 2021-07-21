@@ -1,3 +1,3 @@
 import { makeVar } from "@apollo/client";
 
-export const offsetVar = makeVar(0);
+export const offsetVar = makeVar(20);
