@@ -2,18 +2,22 @@
 
 exports[`UserCard renderCorrectly 1`] = `
 <div
-  className="MuiPaper-root MuiCard-root sc-bdnxRM fjnpmH user-cards MuiPaper-elevation8 MuiPaper-rounded"
-  data-testid="user-card"
+  className="MuiGrid-root makeStyles-root-2 MuiGrid-item"
 >
   <div
-    className="MuiCardContent-root"
+    className="MuiPaper-root MuiCard-root makeStyles-usercard-1 MuiPaper-elevation8 MuiPaper-rounded"
+    data-testid="user-card"
   >
-    abc
-  </div>
-  <div
-    className="MuiCardContent-root"
-  >
-    Delhi
+    <div
+      className="MuiCardContent-root"
+    >
+      abc
+    </div>
+    <div
+      className="MuiCardContent-root"
+    >
+      Delhi
+    </div>
   </div>
 </div>
 `;
