@@ -7,14 +7,14 @@ const useStyles = makeStyles(theme => ({
         width: '300px',
         height: '150px',
         padding: '5px',
-        margin: '2px',
+        margin: '1px',
        "&:hover":{
             backgroundColor: 'grey',
             cursor: 'pointer'
         }
     },
     root:{
-        flexGrow:1
+       justifyContent: 'center'
     }
   }));
 

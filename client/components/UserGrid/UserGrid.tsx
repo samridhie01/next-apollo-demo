@@ -7,10 +7,9 @@ import UserCard from "../UserCard/UserCard";
 
 const useStyles = makeStyles(theme => ({
     root: {
-      padding: theme.spacing(4, 0),
+      padding: theme.spacing(4),
       display: 'flex',
-       flexGrow: 1,
-       justifyContent: 'center'
+      justifyContent: 'center'
     },
   }));
 
@@ -37,13 +36,6 @@ const UserGrid = ()=>{
         getRequiredUsers();
         offsetVar(offsetVar() + first);
     }
-
-    const isDisabled = (): boolean => {
-        console.log("HERE", data && data.allUsers.totalCount, offsetVar(), data && data.allUsers.totalCount===offsetVar());
-        
-        return data && data.allUsers.totalCount===offsetVar();
-    }
-
     return (
         <div>
             {}
@@ -52,7 +44,7 @@ const UserGrid = ()=>{
                             
                 : (
                     <>
-                        <Grid container data-testid='user-grid'>
+                        <Grid container data-testid='user-grid' className={classes.root}>
                         {data && data.allUsers.users.map((user: User) => (
                             <UserCard name={user.name} addr={user.addr}/>
                         ))}
